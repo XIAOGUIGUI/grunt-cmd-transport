@@ -85,7 +85,7 @@ exports.init = function(grunt) {
         if (typeof dep !== 'string') {
           dep = fn ? fn(dep) : dep.id;
         }
-        return dep.replace(/\.js$/, '');
+        return dep.replace(/\.js$/, '').replace(/\\/g, '/');
       });
     }
 
@@ -303,7 +303,6 @@ exports.init = function(grunt) {
         deps = grunt.util._.chain(deps)
           .flatten()
           .filter(function(item) {return typeof item !== 'undefined'})
-          .uniq(function(item) {return item.path})
           .each(function(item) {
             if (item.relative) item.id = relative(path, item.path);
           })
